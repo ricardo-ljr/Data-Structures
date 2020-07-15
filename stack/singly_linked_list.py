@@ -4,7 +4,7 @@ class Node:
     Stores two pieces of data:
     1. The Value
     2. The Next Node
-​
+
     Methods/Behavior/Operations:
     1. Get value
     2. Set value
@@ -34,7 +34,7 @@ class LinkedList:
     Data:
     1. A reference to the head Node
     2. A reference to the tail Node
-​
+
     Behavior/Methods:
     1. Add To Tail
     2. Prepend (Add a new node and point that Node's next_node at the old Head; update Head pointer)
@@ -51,7 +51,7 @@ class LinkedList:
         self.tail = None
 
     def add_to_tail(self, value):
-       # wrap the input value in a node
+        # wrap the input value in a node
         new_node = Node(value, None)
         # check if there is no head (i.e., the list is empty)
         if not self.head:
@@ -66,7 +66,7 @@ class LinkedList:
             self.tail = new_node
 
     def remove_head(self):
-       # return None if there is no head (i.e. the list is empty)
+        # return None if there is no head (i.e. the list is empty)
         if not self.head:
             return None
         # if head has no next, then we have a single element in our list
@@ -108,18 +108,19 @@ class LinkedList:
     def contains(self, value):
         if not self.head:
             return False
-      # Recursive solution
-      # def search(node):
-      #   if node.get_value() == value:
-      #     return True
-      #   if not node.get_next():
-      #     return False
-      #   return search(node.get_next())
-      # return search(self.head)
 
-      # get a reference to the node we're currently at; update this as we traverse the list
+        # Recursive solution
+        # def search(node):
+        #   if node.get_value() == value:
+        #     return True
+        #   if not node.get_next():
+        #     return False
+        #   return search(node.get_next())
+        # return search(self.head)
+
+        # get a reference to the node we're currently at; update this as we traverse the list
         current = self.head
-    # check to see if we're at a valid node
+        # check to see if we're at a valid node
         while current:
             # return True if the current value we're looking at matches our target value
             if current.get_value() == value:
@@ -127,7 +128,7 @@ class LinkedList:
             # update our current node to the current node's next node
             current = current.get_next()
         # if we've gotten here, then the target node isn't in our list
-            return False
+        return False
 
     def get_max(self):
         if not self.head:
@@ -142,6 +143,45 @@ class LinkedList:
             if current.get_value() > max_value:
                 # if so, update our max_value variable
                 max_value = current.get_value()
-                # update the current node to the next node in the list
+            # update the current node to the next node in the list
             current = current.get_next()
         return max_value
+
+    def reverse(self):
+        if self.head is None:
+            return None
+
+        elif self.head is self.tail:
+            return self.head
+
+        else:
+            prev = None
+            current = self.head
+            while current is not None:
+                next_node = current.next_node
+                current.next_node = prev
+                prev = current
+                current = next_node
+            self.head = prev
+
+    def printList(self):
+        temp = self.head
+        while temp:
+            print(temp.value)
+            temp = temp.next_node
+
+
+ll = LinkedList()
+
+
+ll.add_to_tail(1)
+ll.add_to_tail(2)
+ll.add_to_tail(3)
+ll.add_to_tail(4)
+ll.add_to_tail(5)
+
+ll.printList()
+
+ll.reverse()
+
+ll.printList()
